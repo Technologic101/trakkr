@@ -1,0 +1,58 @@
+
+    <h3 class="card-title">{{controller.project.name}}</h3>
+
+    <p>{{controller.project.description}}</p>
+    <hr/>
+    <div class="panel-group" ng-repeat="issue in controller.issues">
+      <div class="panel panel-default" ng-class="{ 'panel-info' : issue.status == 'open',
+                                                  'panel-primary' : issue.status == 'priority',
+                                                  'panel-success' : issue.status == 'complete',
+                                                  'panel-warning' : issue.status == 'on hold' || issue.status == 'client feedback'
+                                                 }"
+        ng-change="controller.setStatus(issue.status)">
+        <div class="panel-heading">
+          <h4 class="card-title">{{issue.name}}</h4>
+          <div class="status-select pull-right">
+            <label>Status: </label>
+            {{issue.status}}
+            {{controller.statuses}}
+            <select class="selectpicker" ng-model="issue.status" ng-options="option for option in controller.statuses">
+          </div>
+        </div>
+        <div class="panel-body">
+          <p>{{issue.description}}</p>
+          <p ng-show="issue.links">Reference: {{issue.links}}</p>
+        </div>
+        <div class="panel-footer">
+          <p>Assigned to {{issue.assigned_to}}<span ng-show="issue.due_date">, due {{issue.due_date}}</span></p>
+        </div>
+    </div><!-- .panel-group -->
+  </div>
+</div>
+<hr/>
+<h3>Add an Issue</h3>
+<hr/>
+<form ng-submit="controller.addIssue(controller.newIssue)">
+  <div class="form-group">
+    <label>Name:</label>
+    <input type="text" ng-model="controller.newIssue.name" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Description:</label>
+    <textarea ng-model="controller.newIssue.description" class="form-control" />
+    </textarea>
+  </div>
+  <div class="form-group">
+    <label>Assigned to:</label>
+    <input type="text" ng-model="controller.newIssue.assigned_to" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Due Date:</label>
+    <input type="text" ng-model="controller.newIssue.due_date" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Page URL</label>
+    <input type="text" ng-model="controller.newIssue.page_url" class="form-control" />
+  </div>
+  <button type="submit" class="btn btn-primary">Add Issue</button>
+</form>

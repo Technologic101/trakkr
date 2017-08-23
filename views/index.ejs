@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="trakkr">
+
+<head>
+  <title>trakkr</title>
+  <meta charset="utf-8">
+  <base href="/" />
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/ngApp/css/site.css"/>
+
+</head>
+
+<header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Trakkr <small>by Sonder</small></h1>
+        <nav>
+          <ul class="navbar-nav nav navbar-default" ng-controller="NavbarController as vm" class="navbar">
+            <li><a href="/">Home</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <a class="slack-btn" ng-hide="vm.token" href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=2194706410.199566494741">
+              <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+            </a>
+          </ul>
+        </nav>
+      </div>
+    </div><!-- /row -->
+  </div>
+</header>
+<body>
+  <div class="container-fluid">
+        <ui-view></ui-view>
+  </div>
+
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="/bower_components/auth0-lock/build/lock.js"></script>
+  <script src="/bower_components/angular-lock/dist/angular-lock.js"></script>
+  <script src="/bower_components/angular-jwt/dist/angular-jwt.js"></script>
+
+  <script src="/ngApp/app.js"></script>
+  <script src="/ngApp/controllers/controllers.js"></script>
+  <script src="/ngApp/controllers/home_controller.js"></script>
+  <script src="/ngApp/controllers/slack_controller.js"></script>
+  <script src="/ngApp/controllers/project_controllers.js"></script>
+  <script src="/ngApp/services/services.js"></script>
+
+</body>
+
+</html>

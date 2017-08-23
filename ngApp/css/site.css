@@ -1,0 +1,48 @@
+.container-fluid {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-default {
+  border: 1px solid darkgrey;
+  box-shadow: 1px 1px 1px lightgrey;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.navbar-default a {
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.slack-btn{
+  position: absolute;
+  top: 25px;
+  right: 0px;
+}
+
+form {
+  margin-bottom: 50px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-left: 0;
+}
+
+.panel {
+  position: relative;
+}
+
+.panel .btn {
+  top: 12px;
+  right: 20px;
+  position: absolute;
+}
