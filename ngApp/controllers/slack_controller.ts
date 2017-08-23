@@ -22,7 +22,6 @@ namespace trakkr.Controllers {
           console.log(err);
           instance.message = "Sorry, there was a problem with the login.";
         });
-      console.log('after userservice then');
     }
   }
 }

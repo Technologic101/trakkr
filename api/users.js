@@ -31,6 +31,7 @@ router.post('/', function (req, res) {
 });
 router.post('/slackAuth', function (req, res) {
     var url = "https://slack.com/api/oauth.access?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET + "&code=" + req.body.code;
+    console.log('slackAuth api route called');
     request(url, function (error, response, body) {
         if (error) {
             res.status(500);
