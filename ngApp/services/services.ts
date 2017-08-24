@@ -38,6 +38,9 @@ namespace trakkr.Services {
     }
 
     public save(data) {
+      console.log(data);
+      console.log('service save function called');
+
       this.user.name = data.user.name;
       this.user.email = data.user.email;
       this.user.access_token = data.access_token;
@@ -52,6 +55,7 @@ namespace trakkr.Services {
 
     public signIn(code) {
       let service = this;
+      console.log('signIn function called');
       return new Promise( function(resolve, reject) {
         service.$http({
           method: 'POST',
@@ -60,6 +64,7 @@ namespace trakkr.Services {
         }).then(function success(res) {
           //console.log('from then method' + JSON.stringify(res.data));
           return service.save(res.data).then( (result) => {
+            console.log('from signIn callback ' + result);
             resolve(result);
           }).$promise;
         }, function error(err) {
