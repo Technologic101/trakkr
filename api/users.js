@@ -14,10 +14,15 @@ router.get('/', function (req, res) {
     });
 });
 router.post('/', function (req, res) {
-    user_1.default.findOne({ 'id': req.body.id }).then(function (user) {
+    console.log('save route called');
+    user_1.default.findOne({ 'id': req.body.id }, function (err, user) {
+        if (err) {
+            res.status(500);
+            console.error(err);
+        }
         if (!user) {
-            user.user_role = 'normal';
             user = new user_1.default(req.body);
+            user.user_role = 'normal';
             user.save().then(function (user) {
                 var tok = user.generateJWT();
                 res.json({ token: tok });
@@ -37,6 +42,7 @@ router.post('/slackAuth', function (req, res) {
             res.status(500);
             console.error(error);
         }
+        console.log(body);
         res.send(body);
     });
 });

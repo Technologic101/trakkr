@@ -43,8 +43,6 @@ namespace trakkr.Services {
       this.user.access_token = data.access_token;
       this.user.id = data.user.id;
 
-      console.log('service save function called');
-
       return this.UserResource.save(this.user, function (data) {
          return data;
        }, function (err) {
@@ -54,7 +52,6 @@ namespace trakkr.Services {
 
     public signIn(code) {
       let service = this;
-      console.log('signIn function called');
       return new Promise( function(resolve, reject) {
         service.$http({
           method: 'POST',

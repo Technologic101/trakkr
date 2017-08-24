@@ -15,6 +15,7 @@ router.get('/:id', (req, res) => {
 
 // GET users
 router.get('/', (req, res) => {
+
   User.find().then((users)=> {
       res.json(users);
   }).catch((err) => {
@@ -25,11 +26,17 @@ router.get('/', (req, res) => {
 
 // Create/Update user and save token
 router.post('/', (req, res) => {
+  console.log('save route called');
+  User.findOne({'id': req.body.id}, (err, user:any) => {
 
-  User.findOne({'id': req.body.id}).then( (user:any) => {
+    if (err) {
+      res.status(500);
+      console.error(err);
+    }
+
     if (!user) {
-      user.user_role = 'normal';
       user = new User(req.body);
+      user.user_role = 'normal';
       user.save().then( (user) => {
         let tok = user.generateJWT();
         res.json({token: tok});
@@ -52,6 +59,7 @@ router.post('/slackAuth', (req, res) => {
       console.error(error);
     }
 
+    console.log(body);
     res.send(body);
   });
 });

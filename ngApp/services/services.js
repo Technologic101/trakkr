@@ -39,7 +39,6 @@ var trakkr;
                 this.user.email = data.user.email;
                 this.user.access_token = data.access_token;
                 this.user.id = data.user.id;
-                console.log('service save function called');
                 return this.UserResource.save(this.user, function (data) {
                     return data;
                 }, function (err) {
@@ -48,7 +47,6 @@ var trakkr;
             };
             UserService.prototype.signIn = function (code) {
                 var service = this;
-                console.log('signIn function called');
                 return new Promise(function (resolve, reject) {
                     service.$http({
                         method: 'POST',
