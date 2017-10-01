@@ -29,9 +29,9 @@ namespace trakkr.Services {
     private UserResource;
     private user:any = {};
 
-    public get(id) {
+    /*public get(id) {
       return this.UserResource.get({id:id});
-    }
+    }*/
 
     public list() {
       return this.UserResource.query();

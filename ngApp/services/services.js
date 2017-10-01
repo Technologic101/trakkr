@@ -28,9 +28,6 @@ var trakkr;
                 this.user = {};
                 this.UserResource = $resource('/api/users/:id');
             }
-            UserService.prototype.get = function (id) {
-                return this.UserResource.get({ id: id });
-            };
             UserService.prototype.list = function () {
                 return this.UserResource.query();
             };

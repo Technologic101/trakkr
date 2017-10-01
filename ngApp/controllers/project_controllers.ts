@@ -3,6 +3,7 @@ namespace trakkr.Controllers {
     private projects;
     private project;
     private payload;
+    private users;
     private token = window.localStorage['token'];
 
     public saveProject() {
@@ -18,9 +19,11 @@ namespace trakkr.Controllers {
     }
 
     constructor(
-      private ProjectService:trakkr.Services.ProjectService
+      private ProjectService:trakkr.Services.ProjectService,
+      private UserService:trakkr.Services.UserService
     ) {
       this.projects = ProjectService.list();
+      this.users = UserService.list();
       if(this.token) {
        this.payload = JSON.parse(window.atob(this.token.split('.')[1]));
       }

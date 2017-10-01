@@ -3,10 +3,12 @@ var trakkr;
     var Controllers;
     (function (Controllers) {
         var ProjectController = (function () {
-            function ProjectController(ProjectService) {
+            function ProjectController(ProjectService, UserService) {
                 this.ProjectService = ProjectService;
+                this.UserService = UserService;
                 this.token = window.localStorage['token'];
                 this.projects = ProjectService.list();
+                this.users = UserService.list();
                 if (this.token) {
                     this.payload = JSON.parse(window.atob(this.token.split('.')[1]));
                 }
