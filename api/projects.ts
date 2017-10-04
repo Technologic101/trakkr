@@ -30,6 +30,9 @@ router.post('/', (req, res) => {
   let project = new Project(req.body);
   project.save().then( (project) => {
     res.json(project);
+  }).catch((err) => {
+    res.status(500).send();
+    console.error(err);
   });
 });
 

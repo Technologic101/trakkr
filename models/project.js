@@ -9,14 +9,15 @@ var ProjectSchema = new Schema({
     description: {
         type: String
     },
-    group_id: {
-        type: Number,
-        required: true
-    },
     issues: [{
             type: Schema.Types.ObjectId,
             ref: 'Issue'
-        }]
+        }],
+    lead: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 });
 var Project = mongoose.model('Project', ProjectSchema);
 Object.defineProperty(exports, "__esModule", { value: true });

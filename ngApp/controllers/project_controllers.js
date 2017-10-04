@@ -29,13 +29,15 @@ var trakkr;
         }());
         Controllers.ProjectController = ProjectController;
         var SingleProjectController = (function () {
-            function SingleProjectController($stateParams, ProjectService, IssueService) {
+            function SingleProjectController($stateParams, ProjectService, IssueService, UserService) {
                 var _this = this;
                 this.$stateParams = $stateParams;
                 this.ProjectService = ProjectService;
                 this.IssueService = IssueService;
+                this.UserService = UserService;
                 this.statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
                 var id = $stateParams['id'];
+                this.users = UserService.list();
                 ProjectService.get(id).then(function (project) {
                     _this.project = project;
                     _this.issues = project.issues;
@@ -47,11 +49,20 @@ var trakkr;
                 issue.status = 'open';
                 this.IssueService.save(issue).then(function (project) {
                     _this.project = project;
+                    _this.issues = project.issues;
                 });
-                this.issues.push(issue);
             };
-            SingleProjectController.prototype.updateStatus = function (status) {
-                alert('status set!!!!');
+            SingleProjectController.prototype.updateIssue = function (issue, status) {
+                var _this = this;
+                issue.status = status;
+                issue.project_id = this.project._id;
+                console.log(issue);
+                this.IssueService.save(issue).then(function (project) {
+                    _this.project = project;
+                    _this.issues = project.issues;
+                    console.log("This should be project: " + JSON.stringify(project));
+                    alert('status updated');
+                });
             };
             return SingleProjectController;
         }());

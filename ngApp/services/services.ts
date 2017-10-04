@@ -11,6 +11,7 @@ namespace trakkr.Services {
     }
 
     public save(project) {
+      console.log('project service');
       return this.ProjectResource.save(project).$promise;
     }
 

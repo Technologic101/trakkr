@@ -22,6 +22,9 @@ router.post('/', function (req, res) {
     var project = new project_1.default(req.body);
     project.save().then(function (project) {
         res.json(project);
+    }).catch(function (err) {
+        res.status(500).send();
+        console.error(err);
     });
 });
 router.delete('/:id', function (req, res) {

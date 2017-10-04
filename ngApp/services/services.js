@@ -13,6 +13,7 @@ var trakkr;
                 return this.ProjectResource.query();
             };
             ProjectService.prototype.save = function (project) {
+                console.log('project service');
                 return this.ProjectResource.save(project).$promise;
             };
             ProjectService.prototype.remove = function (id) {

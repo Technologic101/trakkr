@@ -43,6 +43,10 @@ let IssueSchema = new Schema({
   }
 });
 
+IssueSchema.method('setStatus', function(status) {
+  this.status = status;
+});
+
 let Issue = mongoose.model('Issue', IssueSchema);
 
 export default Issue;

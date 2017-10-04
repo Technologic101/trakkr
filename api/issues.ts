@@ -13,24 +13,44 @@ let router = express.Router();
 
 // Create/Update issue
 router.post('/', (req, res) => {
-  let issue:any = new Issue();
-  issue.name = req.body.name;
-  issue.description = req.body.description;
-  issue.assigned_to = req.body.assigned_to;
-  issue.save((err, newIssue) => {
-    if (err) {
-      res.send(err);
-    } else {
-      Project.findByIdAndUpdate(req.body.project_id, { "$push": { "issues": newIssue._id }}, { "new": true, "upsert": true},
-        function (err, updatedProject) {
-          if (err) {
-            res.send(err)
-          } else {
-            res.send(updatedProject);
-          }
-        });
-      }
-  });
+  let issue:any;
+  console.log(JSON.stringify(req.body));
+  if(!req.body._id) {
+    console.log('not req.body._id');
+    issue = new Issue(req.body);
+    issueUpdate(issue);
+  } else {
+    issue = Issue.findOne({'_id': req.body._id}).then( (issue:any) => {
+      // update properties
+      issue.name = req.body.name;
+      issue.description = req.body.description;
+      issue.assigned_to = req.body.assigned_to;
+      issue.status = req.body.status;
+      issue.due_date = req.body.due_date;
+
+      issueUpdate(issue);
+    });
+  }
+
+  function issueUpdate (issue) {
+    issue.save().then( (newIssue) => {
+      console.log('From issueUpdate then function: ' + newIssue);
+
+      // Return the parent project with its issues updated
+      Project.findByIdAndUpdate(req.body.project_id, { "$addToSet": { "issues": newIssue._id }}, { "new": true })
+      .populate('issues')
+      .exec( (err, updatedProject) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+        res.status(400).send(updatedProject);
+      });
+    }).catch( (err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+  }
+
 });
 
 router.delete('/:id', (req, res) => {

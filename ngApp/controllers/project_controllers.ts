@@ -33,6 +33,7 @@ namespace trakkr.Controllers {
   export class SingleProjectController {
     private project;
     private issues;
+    private users;
     private newIssue:any;
 
     private statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
@@ -42,20 +43,32 @@ namespace trakkr.Controllers {
       issue.status = 'open';
       this.IssueService.save(issue).then((project) => {
         this.project = project;
+        this.issues = project.issues;
       });
-      this.issues.push(issue);
     }
 
-    public updateStatus(status) {
-      alert('status set!!!!');
+    public updateIssue(issue, status) {
+      issue.status = status;
+      issue.project_id = this.project._id;
+
+      console.log(issue);
+      this.IssueService.save(issue).then((project) => {
+        this.project = project;
+        this.issues = project.issues;
+        console.log("This should be project: " + JSON.stringify(project));
+        alert('status updated');
+      });
     }
 
     constructor (
       private $stateParams:ng.ui.IStateParamsService,
       private ProjectService:trakkr.Services.ProjectService,
       private IssueService:trakkr.Services.IssueService,
+      private UserService:trakkr.Services.UserService
     ) {
       let id = $stateParams['id'];
+      this.users = UserService.list();
+
       ProjectService.get(id).then((project) => {
         this.project = project;
         this.issues = project.issues;

@@ -38,6 +38,9 @@ var IssueSchema = new Schema({
         type: Date
     }
 });
+IssueSchema.method('setStatus', function (status) {
+    this.status = status;
+});
 var Issue = mongoose.model('Issue', IssueSchema);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Issue;
