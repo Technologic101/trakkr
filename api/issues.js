@@ -18,6 +18,7 @@ router.post('/', function (req, res) {
             issue.assigned_to = req.body.assigned_to;
             issue.status = req.body.status;
             issue.due_date = req.body.due_date;
+            issue.links = req.body.links;
             issueUpdate(issue);
         });
     }
@@ -30,7 +31,7 @@ router.post('/', function (req, res) {
                 if (err) {
                     res.status(500).send(err);
                 }
-                res.status(400).send(updatedProject);
+                res.status(200).send(updatedProject);
             });
         }).catch(function (err) {
             console.log(err);

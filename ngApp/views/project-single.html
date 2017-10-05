@@ -3,32 +3,22 @@
 
 <p>{{controller.project.description}}</p>
 <hr/>
-<p ng-hide="controller.issues.length > 0">There are no issues on this project yet.</p>
-<div class="panel-group" ng-repeat="issue in controller.issues">
-  <div class="panel panel-default" ng-class="{ 'panel-info' : issue.status == 'open',
+<h4 ng-show="controller.issues.length == 0">There are no issues on this project yet.</h4>
+<uib-accordion>
+  <div uib-accordion-group class="panel" ng-class="{ 'panel-info' : issue.status == 'open',
                                               'panel-primary' : issue.status == 'priority',
                                               'panel-success' : issue.status == 'complete',
                                               'panel-warning' : issue.status == 'on hold' || issue.status == 'client feedback'
-                                             }">
-    <div class="panel-heading">
-      <div class="status-select pull-right">
-        <label>Status: </label>
-        {{issue.status}}
-        <form>
-          <select class="selectpicker" ng-model="issue.status" ng-change="controller.updateIssue(issue, issue.status)" ng-options="option for option in controller.statuses"></select>
-        </form>
-      </div>
-      <h4 class="card-title">{{issue.name}}</h4>
-    </div>
-    <div class="panel-body">
-      <p>{{issue.description}}</p>
-      <p ng-show="issue.links">Reference: {{issue.links}}</p>
-    </div>
-    <div class="panel-footer">
-      <p>Assigned to <strong>{{issue.assigned_to}}</stron><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
-    </div>
-  </div><!-- .panel-default -->
-</div><!-- .panel-group -->
+                                            } || " heading="{{issue.name}} -- {{issue.status}}" ng-repeat="issue in controller.issues">
+    <p>{{issue.description}}</p>
+    <p ng-show="issue.links">Reference: {{issue.links}}</p>
+    <form>
+      <label>Set Status:</label>
+      <select class="selectpicker form-control" ng-model="issue.status" ng-change="controller.updateIssue(issue, issue.status)" ng-options="option for option in controller.statuses"></select>
+    </form>
+    <p>Assigned to <strong>{{issue.assigned_to}}</strong><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
+  </div>
+</uib-accordion>
 
 <hr/>
 <h3>Add an Issue</h3>

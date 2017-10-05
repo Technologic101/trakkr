@@ -8,6 +8,8 @@ h1 a:hover {
   text-decoration: none;
 }
 
+/* Global */
+
 .container-fluid {
   max-width: 800px;
   margin-left: auto;
@@ -34,8 +36,19 @@ h1 a:hover {
   right: 0px;
 }
 
+/* Form */
+
+.panel form {
+  margin-bottom: 0;
+}
+
 form {
   margin-bottom: 50px;
+}
+
+.status-select {
+  position: relative;
+  top: 9px;
 }
 
 ul {
