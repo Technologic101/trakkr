@@ -36,20 +36,17 @@ router.post('/', (req, res) => {
   function issueUpdate (issue) {
     issue.save().then( (newIssue) => {
       console.log('From issueUpdate then function: ' + newIssue);
+      console.log(newIssue.project);
 
       // Return the parent project with its issues updated
-      Project.findByIdAndUpdate(req.body.project_id, { "$addToSet": { "issues": newIssue._id }}, { "new": true })
-      .populate('issues')
-      .exec( (err, updatedProject) => {
+      Project.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id }}, { "new": true })
+      .populate('issues').exec( (err, updatedProject) => {
         if (err) {
           res.status(500).send(err);
         }
         console.log('Updated Project: ' + JSON.stringify(updatedProject));
         res.status(200).send(updatedProject);
       });
-    }).catch( (err) => {
-      console.log(err);
-      res.status(500).send(err);
     });
   }
 

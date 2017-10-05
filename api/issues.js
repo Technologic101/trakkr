@@ -25,18 +25,15 @@ router.post('/', function (req, res) {
     function issueUpdate(issue) {
         issue.save().then(function (newIssue) {
             console.log('From issueUpdate then function: ' + newIssue);
-            project_1.default.findByIdAndUpdate(req.body.project_id, { "$addToSet": { "issues": newIssue._id } }, { "new": true })
-                .populate('issues')
-                .exec(function (err, updatedProject) {
+            console.log(newIssue.project);
+            project_1.default.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id } }, { "new": true })
+                .populate('issues').exec(function (err, updatedProject) {
                 if (err) {
                     res.status(500).send(err);
                 }
                 console.log('Updated Project: ' + JSON.stringify(updatedProject));
                 res.status(200).send(updatedProject);
             });
-        }).catch(function (err) {
-            console.log(err);
-            res.status(500).send(err);
         });
     }
 });
