@@ -36,6 +36,10 @@ var IssueSchema = new Schema({
     },
     date_completed: {
         type: Date
+    },
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }
 });
 IssueSchema.method('setStatus', function (status) {

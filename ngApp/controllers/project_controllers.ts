@@ -39,7 +39,7 @@ namespace trakkr.Controllers {
     private statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
 
     public addIssue(issue) {
-      issue.project_id = this.project._id;
+      issue.project = this.project._id;
       issue.status = 'open';
       this.IssueService.save(issue).then((project) => {
         this.project = project;
@@ -49,7 +49,7 @@ namespace trakkr.Controllers {
 
     public updateIssue(issue, status) {
       issue.status = status;
-      issue.project_id = this.project._id;
+      issue.project = this.project._id;
 
       console.log(issue);
       this.IssueService.save(issue).then((project) => {

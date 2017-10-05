@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose';
+import * as Project from './project';
+
 
 let Schema = mongoose.Schema;
 
@@ -40,6 +42,10 @@ let IssueSchema = new Schema({
   },*/
   date_completed: {
     type:Date
+  },
+  project: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'    
   }
 });
 

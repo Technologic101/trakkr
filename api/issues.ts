@@ -44,6 +44,7 @@ router.post('/', (req, res) => {
         if (err) {
           res.status(500).send(err);
         }
+        console.log('Updated Project: ' + JSON.stringify(updatedProject));
         res.status(200).send(updatedProject);
       });
     }).catch( (err) => {

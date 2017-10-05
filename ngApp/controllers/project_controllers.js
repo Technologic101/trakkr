@@ -45,7 +45,7 @@ var trakkr;
             }
             SingleProjectController.prototype.addIssue = function (issue) {
                 var _this = this;
-                issue.project_id = this.project._id;
+                issue.project = this.project._id;
                 issue.status = 'open';
                 this.IssueService.save(issue).then(function (project) {
                     _this.project = project;
@@ -55,7 +55,7 @@ var trakkr;
             SingleProjectController.prototype.updateIssue = function (issue, status) {
                 var _this = this;
                 issue.status = status;
-                issue.project_id = this.project._id;
+                issue.project = this.project._id;
                 console.log(issue);
                 this.IssueService.save(issue).then(function (project) {
                     _this.project = project;

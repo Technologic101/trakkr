@@ -11,12 +11,14 @@
                                               'panel-warning' : issue.status == 'on hold' || issue.status == 'client feedback'
                                             } || " heading="{{issue.name}} -- {{issue.status}}" ng-repeat="issue in controller.issues">
     <p>{{issue.description}}</p>
+    <hr/>
+    <p>Assigned to <strong>{{issue.assigned_to}}</strong><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
     <p ng-show="issue.links">Reference: {{issue.links}}</p>
-    <form>
+    <hr/>
+    <form class="form-inline">
       <label>Set Status:</label>
       <select class="selectpicker form-control" ng-model="issue.status" ng-change="controller.updateIssue(issue, issue.status)" ng-options="option for option in controller.statuses"></select>
     </form>
-    <p>Assigned to <strong>{{issue.assigned_to}}</strong><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
   </div>
 </uib-accordion>
 
@@ -43,7 +45,7 @@
   </div>
   <div class="form-group">
     <label>Page URL</label>
-    <input type="text" ng-model="controller.newIssue.page_url" class="form-control" />
+    <input type="text" ng-model="controller.newIssue.links" class="form-control" />
   </div>
   <button type="submit" class="btn btn-primary">Add Issue</button>
 </form>
