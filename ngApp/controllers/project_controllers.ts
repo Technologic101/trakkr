@@ -55,8 +55,6 @@ namespace trakkr.Controllers {
       this.IssueService.save(issue).then((project) => {
         this.project = project;
         this.issues = project.issues;
-        console.log("This should be project: " + JSON.stringify(project));
-        alert('status updated');
       });
     }
 

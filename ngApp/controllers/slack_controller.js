@@ -25,5 +25,30 @@ var trakkr;
             return SlackController;
         }());
         Controllers.SlackController = SlackController;
+        var SlackChatController = (function () {
+            function SlackChatController($http) {
+                this.data = {
+                    "text": "Hi from Trakkr!"
+                };
+                this.payload = encodeURI("payload=" + JSON.stringify(this.data));
+                this.hello = this.payload;
+                this.$http = $http;
+            }
+            SlackChatController.prototype.sendTest = function () {
+                this.$http({
+                    url: 'https://hooks.slack.com/services/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',
+                    method: "POST",
+                    data: this.payload,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).then(function (res) {
+                    console.log(res);
+                }, function (err) {
+                    console.log(err);
+                });
+            };
+            return SlackChatController;
+        }());
+        Controllers.SlackChatController = SlackChatController;
+        angular.module('trakkr').controller('SlackChatController', SlackChatController);
     })(Controllers = trakkr.Controllers || (trakkr.Controllers = {}));
 })(trakkr || (trakkr = {}));

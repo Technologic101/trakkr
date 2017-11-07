@@ -60,8 +60,6 @@ var trakkr;
                 this.IssueService.save(issue).then(function (project) {
                     _this.project = project;
                     _this.issues = project.issues;
-                    console.log("This should be project: " + JSON.stringify(project));
-                    alert('status updated');
                 });
             };
             return SingleProjectController;
