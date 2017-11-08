@@ -35,15 +35,33 @@ namespace trakkr.Controllers {
     private issues;
     private users;
     private newIssue:any;
+    private http;
+    private url;
 
     private statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
 
     public addIssue(issue) {
       issue.project = this.project._id;
       issue.status = 'open';
+      const data = {
+        "text": `*${issue.name}*\n${issue.description}\n<${this.url}|Go to Project>`
+      };
+      const payload = encodeURI("payload=" + JSON.stringify(data));
+
       this.IssueService.save(issue).then((project) => {
         this.project = project;
         this.issues = project.issues;
+
+        this.$http({
+          url: 'https://hooks.slack.com/services/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',
+          method: "POST",
+          data: payload,
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then( (res) => {
+          console.log(res);
+        }, (err) => {
+          console.log(err);
+        });
       });
     }
 
@@ -62,13 +80,16 @@ namespace trakkr.Controllers {
       private $stateParams:ng.ui.IStateParamsService,
       private ProjectService:trakkr.Services.ProjectService,
       private IssueService:trakkr.Services.IssueService,
-      private UserService:trakkr.Services.UserService
+      private UserService:trakkr.Services.UserService,
+      private $http
     ) {
       let id = $stateParams['id'];
       this.users = UserService.list();
+      this.http = $http;
 
       ProjectService.get(id).then((project) => {
         this.project = project;
+        this.url = "https://sonder-trakkr.herokuapp.com/project/" + project._id;
         this.issues = project.issues;
       });
     }
