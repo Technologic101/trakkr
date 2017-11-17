@@ -1,6 +1,6 @@
 namespace trakkr {
 
-    angular.module('trakkr', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('trakkr', ['ui.router', 'ngResource', 'ui.bootstrap', 'dndLists']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider

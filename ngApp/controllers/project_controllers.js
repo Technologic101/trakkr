@@ -58,7 +58,7 @@ var trakkr;
                     _this.project = project;
                     _this.issues = project.issues;
                     _this.$http({
-                        url: 'https://hooks.slack.com/services/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',
+                        url: 'https://hooks.slack.com/services/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',
                         method: "POST",
                         data: payload,
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }

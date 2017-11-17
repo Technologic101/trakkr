@@ -1,6 +1,6 @@
 var trakkr;
 (function (trakkr) {
-    angular.module('trakkr', ['ui.router', 'ngResource', 'ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    angular.module('trakkr', ['ui.router', 'ngResource', 'ui.bootstrap', 'dndLists']).config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('home', {
             url: '/',
