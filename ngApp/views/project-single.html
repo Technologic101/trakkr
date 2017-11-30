@@ -1,4 +1,6 @@
 
+{{controller.issues}}
+
 <h3 class="card-title">{{controller.project.name}}</h3>
 
 <p>{{controller.project.description}}</p>
@@ -6,20 +8,27 @@
 <h4 ng-show="controller.issues.length == 0">There are no issues on this project yet.</h4>
 <uib-accordion>
   <h4>Issues</h4>
-  <div uib-accordion-group class="panel" ng-class="{ 'panel-info' : issue.status == 'open',
-                                              'panel-primary' : issue.status == 'priority',
-                                              'panel-success' : issue.status == 'complete',
-                                              'panel-warning' : issue.status == 'on hold' || issue.status == 'client feedback'
-                                            } || " heading="{{issue.name}} -- {{issue.status}}" ng-repeat="issue in controller.issues">
-    <p>{{issue.description}}</p>
-    <hr/>
-    <p>Assigned to <strong>{{issue.assigned_to}}</strong><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
-    <p ng-show="issue.links">Reference: {{issue.links}}</p>
-    <hr/>
-    <form class="form-inline">
-      <label>Set Status:</label>
-      <select class="selectpicker form-control" ng-model="issue.status" ng-change="controller.updateIssue(issue, issue.status)" ng-options="option for option in controller.statuses"></select>
-    </form>
+  <div dnd-list="controller.issues" class="dnd-container">
+    <div uib-accordion-group  class="panel" ng-class="{ 'panel-info' : issue.status == 'open',
+                                                'panel-primary' : issue.status == 'priority',
+                                                'panel-success' : issue.status == 'complete',
+                                                'panel-warning' : issue.status == 'on hold' || issue.status == 'client feedback'
+                                              } || " heading="{{issue.name}} -- {{issue.status}}"
+                                              ng-repeat="issue in controller.issues"
+                                              dnd-draggable="issue"
+                                              dnd-effect-allowed="move"
+                                              dnd-moved="controller.issues.splice($index, 1)"
+                                              draggable="true">
+      <p>{{issue.description}}</p>
+      <hr/>
+      <p>Assigned to <strong>{{issue.assigned_to}}</strong><span ng-show="issue.due_date">, due <strong>{{issue.due_date}}</strong></span></p>
+      <p ng-show="issue.links">Reference: {{issue.links}}</p>
+      <hr/>
+      <form class="form-inline">
+        <label>Set Status:</label>
+        <select class="selectpicker form-control" ng-model="issue.status" ng-change="controller.updateIssue(issue, issue.status)" ng-options="option for option in controller.statuses"></select>
+      </form>
+    </div>
   </div>
 </uib-accordion>
 

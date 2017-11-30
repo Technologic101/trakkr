@@ -40,6 +40,10 @@ namespace trakkr.Controllers {
 
     private statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
 
+    public logEvent(e) {
+      console.log(e);
+    }
+
     public addIssue(issue) {
       issue.project = this.project._id;
       issue.status = 'open';
@@ -81,7 +85,7 @@ namespace trakkr.Controllers {
       private ProjectService:trakkr.Services.ProjectService,
       private IssueService:trakkr.Services.IssueService,
       private UserService:trakkr.Services.UserService,
-      private $http
+      private $http,
     ) {
       let id = $stateParams['id'];
       this.users = UserService.list();

@@ -8,7 +8,6 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as ejs from 'ejs';
-import * as dnd from 'angular-drag-and-drop-lists';
 import User from './models/user';
 
 mongoose.connect(process.env.DB_URL, {

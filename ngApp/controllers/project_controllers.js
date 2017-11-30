@@ -46,6 +46,9 @@ var trakkr;
                     _this.issues = project.issues;
                 });
             }
+            SingleProjectController.prototype.logEvent = function (e) {
+                console.log(e);
+            };
             SingleProjectController.prototype.addIssue = function (issue) {
                 var _this = this;
                 issue.project = this.project._id;
