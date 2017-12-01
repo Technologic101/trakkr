@@ -27,9 +27,13 @@ router.get('/', (req, res) => {
 
 // Create/Update project
 router.post('/', (req, res) => {
+  console.log(req.body);
+
+  if (!req.body._id) req.body._id = new Project(req.body);
 
   Project.findOneAndUpdate({ _id: req.body._id }, req.body, {upsert:true}, function(err, project){
       if (err) return res.status(500).send({ error: err });
+      console.log("Project: \n" + project);
       return res.json(project);
   });
 

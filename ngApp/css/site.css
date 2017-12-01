@@ -10,6 +10,10 @@ h1 a:hover {
 
 /* Global */
 
+body {
+  background-color: #fcfcfc;
+}
+
 .container-fluid {
   max-width: 800px;
   margin-left: auto;

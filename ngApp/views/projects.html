@@ -1,6 +1,6 @@
 <h2>Projects</h2>
 <hr/>
-<h3 ng-hide="controller.projects">There are currently no saved projects.</h3>
+<p class="lead" ng-hide="controller.projects.length > 0">There are currently no saved projects.</p>
 <ul>
   <li ng-repeat="project in controller.projects">
     <div class="panel panel-default">
