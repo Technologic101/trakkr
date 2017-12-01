@@ -62,10 +62,22 @@ li {
 
 .panel {
   position: relative;
+  transition: .25s;
 }
 
 .panel .btn {
   top: 12px;
   right: 20px;
   position: absolute;
+}
+
+/* Angular Drag and Drop Styles */
+
+li.dndPlaceholder {
+  height: 37px;
+  border-radius: 3px;
+  background-color: #ddd;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  font-size: 0;
 }

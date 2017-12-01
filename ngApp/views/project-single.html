@@ -17,7 +17,7 @@
                                               ng-repeat="issue in controller.issues"
                                               dnd-draggable="issue"
                                               dnd-effect-allowed="move"
-                                              dnd-moved="controller.issues.splice($index, 1)"
+                                              dnd-moved="controller.dropSort($index)"
                                               draggable="true">
       <p>{{issue.description}}</p>
       <hr/>

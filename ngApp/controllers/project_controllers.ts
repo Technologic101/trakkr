@@ -40,6 +40,24 @@ namespace trakkr.Controllers {
 
     private statuses = ['open', 'priority', 'on hold', 'client feedback', 'complete'];
 
+    // Utility for drag-and-drop sorting and persistence
+    private dropSort(index) {
+      this.issues.splice(index, 1);
+      this.project.issueOrder = this.issues.map( (issue) => issue._id );
+      this.ProjectService.save(this.project).then( (project) => {
+        this.project = project;
+        console.log(project.issueOrder);
+      });
+    }
+
+    /*private compare(a,b) {
+      if (a.last_nom < b.last_nom)
+        return -1;
+      if (a.last_nom > b.last_nom)
+        return 1;
+      return 0;
+    }*/
+
     public logEvent(e) {
       console.log(e);
     }
@@ -94,7 +112,12 @@ namespace trakkr.Controllers {
       ProjectService.get(id).then((project) => {
         this.project = project;
         this.url = "https://sonder-trakkr.herokuapp.com/project/" + project._id;
-        this.issues = project.issues;
+
+        this.issues = Array(project.issues.length);
+        project.issues.forEach( (issue) => {
+          let order = project.issueOrder.indexOf(issue._id);
+          this.issues[order] = issue;
+        });
       });
     }
   }

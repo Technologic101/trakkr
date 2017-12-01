@@ -24,6 +24,7 @@ namespace trakkr.Services {
     }
   }
 
+  ///////////////    PROJECTS    /////////////////////
   angular.module('trakkr').service('ProjectService', ProjectService);
 
   export class UserService {

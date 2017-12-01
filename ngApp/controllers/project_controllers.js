@@ -43,9 +43,22 @@ var trakkr;
                 ProjectService.get(id).then(function (project) {
                     _this.project = project;
                     _this.url = "https://sonder-trakkr.herokuapp.com/project/" + project._id;
-                    _this.issues = project.issues;
+                    _this.issues = Array(project.issues.length);
+                    project.issues.forEach(function (issue) {
+                        var order = project.issueOrder.indexOf(issue._id);
+                        _this.issues[order] = issue;
+                    });
                 });
             }
+            SingleProjectController.prototype.dropSort = function (index) {
+                var _this = this;
+                this.issues.splice(index, 1);
+                this.project.issueOrder = this.issues.map(function (issue) { return issue._id; });
+                this.ProjectService.save(this.project).then(function (project) {
+                    _this.project = project;
+                    console.log(project.issueOrder);
+                });
+            };
             SingleProjectController.prototype.logEvent = function (e) {
                 console.log(e);
             };

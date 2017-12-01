@@ -19,12 +19,10 @@ router.get('/', function (req, res) {
     });
 });
 router.post('/', function (req, res) {
-    var project = new project_1.default(req.body);
-    project.save().then(function (project) {
-        res.json(project);
-    }).catch(function (err) {
-        res.status(500).send();
-        console.error(err);
+    project_1.default.findOneAndUpdate({ _id: req.body._id }, req.body, { upsert: true }, function (err, project) {
+        if (err)
+            return res.status(500).send({ error: err });
+        return res.json(project);
     });
 });
 router.delete('/:id', function (req, res) {
