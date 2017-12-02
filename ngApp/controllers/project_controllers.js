@@ -43,10 +43,14 @@ var trakkr;
                 ProjectService.get(id).then(function (project) {
                     _this.project = project;
                     _this.url = "https://sonder-trakkr.herokuapp.com/project/" + project._id;
+                    console.log(project.issues);
+                    console.log('Issue Order: ' + project.issueOrder);
                     _this.issues = Array(project.issues.length);
+                    console.log(_this.issues);
                     project.issues.forEach(function (issue) {
                         var order = project.issueOrder.indexOf(issue._id);
                         _this.issues[order] = issue;
+                        console.log(_this.issues);
                     });
                 });
             }
@@ -56,33 +60,19 @@ var trakkr;
                 this.project.issueOrder = this.issues.map(function (issue) { return issue._id; });
                 this.ProjectService.save(this.project).then(function (project) {
                     _this.project = project;
-                    console.log(project.issueOrder);
                 });
-            };
-            SingleProjectController.prototype.logEvent = function (e) {
-                console.log(e);
             };
             SingleProjectController.prototype.addIssue = function (issue) {
                 var _this = this;
-                issue.project = this.project._id;
-                issue.status = 'open';
                 var data = {
                     "text": "*" + issue.name + "*\n" + issue.description + "\n<" + this.url + "|Go to Project>"
                 };
                 var payload = encodeURI("payload=" + JSON.stringify(data));
+                issue.project = this.project._id;
+                issue.status = 'open';
                 this.IssueService.save(issue).then(function (project) {
                     _this.project = project;
                     _this.issues = project.issues;
-                    _this.$http({
-                        url: 'https://hooks.slack.com/services/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',
-                        method: "POST",
-                        data: payload,
-                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                    }).then(function (res) {
-                        console.log(res);
-                    }, function (err) {
-                        console.log(err);
-                    });
                 });
             };
             SingleProjectController.prototype.updateIssue = function (issue, status) {

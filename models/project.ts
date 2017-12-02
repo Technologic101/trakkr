@@ -26,7 +26,8 @@ let ProjectSchema = new Schema({
     required: true
   },
   issueOrder: {
-    type: Array
+    type: Array,
+    default: []
   }
 });
 

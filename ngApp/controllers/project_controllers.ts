@@ -46,35 +46,26 @@ namespace trakkr.Controllers {
       this.project.issueOrder = this.issues.map( (issue) => issue._id );
       this.ProjectService.save(this.project).then( (project) => {
         this.project = project;
-        console.log(project.issueOrder);
       });
     }
 
-    /*private compare(a,b) {
-      if (a.last_nom < b.last_nom)
-        return -1;
-      if (a.last_nom > b.last_nom)
-        return 1;
-      return 0;
-    }*/
-
-    public logEvent(e) {
-      console.log(e);
-    }
-
     public addIssue(issue) {
-      issue.project = this.project._id;
-      issue.status = 'open';
+
+      // Configure Slack payload
       const data = {
         "text": `*${issue.name}*\n${issue.description}\n<${this.url}|Go to Project>`
       };
       const payload = encodeURI("payload=" + JSON.stringify(data));
 
+      // Save Changes
+      issue.project = this.project._id;
+      issue.status = 'open';
       this.IssueService.save(issue).then((project) => {
         this.project = project;
         this.issues = project.issues;
 
-        this.$http({
+        // Post New Issue to Slack
+        /*this.$http({
           url: 'https://hooks.slack.com/services/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',
           method: "POST",
           data: payload,
@@ -83,7 +74,7 @@ namespace trakkr.Controllers {
           console.log(res);
         }, (err) => {
           console.log(err);
-        });
+        });*/
       });
     }
 
@@ -112,11 +103,15 @@ namespace trakkr.Controllers {
       ProjectService.get(id).then((project) => {
         this.project = project;
         this.url = "https://sonder-trakkr.herokuapp.com/project/" + project._id;
+        console.log(project.issues);
+        console.log('Issue Order: ' + project.issueOrder);
 
         this.issues = Array(project.issues.length);
+        console.log(this.issues);
         project.issues.forEach( (issue) => {
           let order = project.issueOrder.indexOf(issue._id);
           this.issues[order] = issue;
+          console.log(this.issues);
         });
       });
     }

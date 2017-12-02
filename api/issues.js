@@ -7,7 +7,6 @@ router.post('/', function (req, res) {
     var issue;
     console.log(JSON.stringify(req.body));
     if (!req.body._id) {
-        console.log('not req.body._id');
         issue = new issue_1.default(req.body);
         issueUpdate(issue);
     }
@@ -26,7 +25,7 @@ router.post('/', function (req, res) {
         issue.save().then(function (newIssue) {
             console.log('From issueUpdate then function: ' + newIssue);
             console.log(newIssue.project);
-            project_1.default.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id } }, { "new": true })
+            project_1.default.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id, "issueOrder": newIssue._id } }, { "new": true })
                 .populate('issues').exec(function (err, updatedProject) {
                 if (err) {
                     res.status(500).send(err);
@@ -38,6 +37,9 @@ router.post('/', function (req, res) {
     }
 });
 router.delete('/:id', function (req, res) {
+    issue_1.default.findOneAndRemove(req.body.id, function (err, doc) {
+        err && res.status(500).send(err);
+    });
 });
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = router;

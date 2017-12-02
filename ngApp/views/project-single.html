@@ -5,9 +5,9 @@
 
 <p>{{controller.project.description}}</p>
 <hr/>
-<h4 ng-show="controller.issues.length == 0">There are no issues on this project yet.</h4>
+<h4 ng-show="!controller.issues.length">There are no issues on this project yet.</h4>
 <uib-accordion>
-  <h4>Issues</h4>
+  <h4 ng-show="controller.issues.length > 0">Issues</h4>
   <div dnd-list="controller.issues" class="dnd-container">
     <div uib-accordion-group  class="panel" ng-class="{ 'panel-info' : issue.status == 'open',
                                                 'panel-primary' : issue.status == 'priority',

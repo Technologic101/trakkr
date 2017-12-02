@@ -16,7 +16,6 @@ router.post('/', (req, res) => {
   let issue:any;
   console.log(JSON.stringify(req.body));
   if(!req.body._id) {
-    console.log('not req.body._id');
     issue = new Issue(req.body);
     issueUpdate(issue);
   } else {
@@ -38,8 +37,10 @@ router.post('/', (req, res) => {
       console.log('From issueUpdate then function: ' + newIssue);
       console.log(newIssue.project);
 
+
+
       // Return the parent project with its issues updated
-      Project.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id }}, { "new": true })
+      Project.findByIdAndUpdate(newIssue.project, { "$addToSet": { "issues": newIssue._id, "issueOrder": newIssue._id }}, { "new": true })
       .populate('issues').exec( (err, updatedProject) => {
         if (err) {
           res.status(500).send(err);
@@ -53,7 +54,12 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  Issue.findOneAndRemove(req.body.id, (err, doc) => {
+    // shorthand for if block
+    err && res.status(500).send(err);
 
+    //
+  })
 });
 
 export default router;

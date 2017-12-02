@@ -19,7 +19,8 @@ var ProjectSchema = new Schema({
         required: true
     },
     issueOrder: {
-        type: Array
+        type: Array,
+        default: []
     }
 });
 var Project = mongoose.model('Project', ProjectSchema);
